@@ -54,8 +54,8 @@ export default {
         this.wished = this.stay.wished
     },
     methods: {
-        goToDetail() {
-            this.$store.commit({ type: 'setCurrPage', page: 'details-page' })
+        async goToDetail() {
+            await this.$store.commit({ type: 'setCurrPage', page: 'details-page' })
             this.$router.push(`/stay/${this.stay._id}`)
         },
         addToWishList() {
@@ -71,7 +71,6 @@ export default {
     },
     components: {
         carusel,
-
     },
 }
 

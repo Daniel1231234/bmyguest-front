@@ -71,8 +71,6 @@
         }
     }
 
-
-
 }
 
 
@@ -82,7 +80,13 @@
         display: none !important;
     }
 
-    // .footer-mobile {
-    //     display: flex;
-    // }
+    .footer-mobile {
+        display: flex !important;
+    }
+}
+
+@media (min-width:$break-narrow) {
+    .footer-mobile {
+        display: none !important;
+    }
 }

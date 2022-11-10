@@ -49,7 +49,7 @@
                 </button>
             </div>
             <div class="guests-container">
-                <button @click.prevent class="clickable">
+                <button @click.prevent="openGuestModal = !openGuestModal" class="clickable">
                     <span>Who</span>
                     <span>Add guests</span>
                 </button>
@@ -62,8 +62,10 @@
         <div v-if="openDatePicker">
             <date-picker-mobile @dates="updatedDates" @isOpen="closeDatePicker" />
         </div>
+
+        <guests-modal @guestsAmount="handleGuests" v-if="openGuestModal" />
+
     </form>
-    <!-- <guests-modal /> -->
 </template>
 
 <script>
@@ -81,7 +83,9 @@ export default {
             openDatePicker: false,
             adult: 0,
             children: 0,
-            dates: []
+            dates: [],
+            openGuestModal: false,
+            guestsCount: 0,
         }
     },
     props: {
@@ -90,6 +94,10 @@ export default {
         }
     },
     methods: {
+        handleGuests(val) {
+            console.log(val)
+            this.guestsCount = val
+        },
         closeDatePicker(val) {
             this.openDatePicker = val
         },

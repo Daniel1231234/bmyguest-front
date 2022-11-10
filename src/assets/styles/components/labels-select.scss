@@ -85,7 +85,7 @@
 @media (max-width:$break-narrow) {
     .labels-select {
         padding: 0;
-
+        overflow: hidden;
 
 
         .labels-wrapper {

@@ -74,11 +74,11 @@ export default {
       commit({ type: "setFilterBy", filterBy })
       try {
         const stays = await stayService.query(filterBy)
-        if (stays.length === 60) {
+        console.log(stays)
+        if (stays.length === 62) {
           const tStays = structuredClone(stays)
-          commit({ type: "setTotalStays", tStays })
+          commit({type: "setTotalStays", tStays})
         }
-
         commit({ type: "setStays", stays })
         return stays
       } catch (err) {

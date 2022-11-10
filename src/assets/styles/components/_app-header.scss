@@ -183,11 +183,6 @@
     animation-name: shrink;
     animation-duration: 1s;
     animation-timing-function: ease;
-
-    @include for-narrow-layout {
-        // display: none;
-    }
-
 }
 
 .mini-search-mobile {
@@ -252,6 +247,20 @@
     background-color: #F7F7F7;
     display: block;
     height: 100vh;
+
+
+    .guests-modal {
+        max-width: $break-narrow;
+        width: 93%;
+        z-index: 4;
+        position: fixed;
+        padding: 24px;
+        left: 3%;
+        max-height: 100h;
+        top: 66%;
+    }
+
+
 
     .map-image-container-header {
         display: grid;

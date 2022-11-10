@@ -6,14 +6,13 @@
 import { ElLoading } from 'element-plus'
 
 export default {
-
     data() {
         return {
-
+            isLoading: true
         }
     },
     methods: {
-        openFullScreen = () => {
+        openFullScreen() {
             const loading = ElLoading.service({
                 lock: true,
                 text: 'Loading',
@@ -28,5 +27,5 @@ export default {
 
 
 
-const
+
 </script>

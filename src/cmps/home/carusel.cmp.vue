@@ -1,5 +1,5 @@
 <template  >
-  <Carousel :wrap-around="false">
+  <Carousel :wrap-around="false" :touchDrag="true">
     <slide v-for="slide in this.imgArry.length" :key="slide">
       <div v-if="this.imgArry" class="carousel__item animate__backInRight" @mouseover="shouldShow = true"
         @mouseleave="shouldShow = false">

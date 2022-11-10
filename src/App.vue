@@ -2,7 +2,7 @@
 <template>
   <section class="main-app">
     <app-header :stays="stays" />
-    <div v-if="stays">
+    <div>
       <router-view />
     </div>
     <user-msg />
@@ -14,6 +14,7 @@
 import userMsg from './cmps/user-msg.cmp.vue';
 import appFooter from './cmps/app-footer.cmp.vue'
 import appHeader from './cmps/home/app-header.cmp.vue'
+
 
 export default {
   data() {

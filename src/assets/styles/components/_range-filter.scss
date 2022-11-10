@@ -212,7 +212,7 @@
 @media (max-width:$break-narrow) {
     .range-filter {
         min-width: 0;
-        height: 100vh;
+        height: 100%;
         margin: auto;
         animation-name: openheader;
         animation-duration: .8s;
