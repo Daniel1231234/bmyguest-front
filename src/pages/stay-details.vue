@@ -1,28 +1,32 @@
 <template>
-  <section v-if="stay">
-    <div class="details-page">
-      <div id="photos" class="stay-details main-layout">
-        <!-- <deatils-sticky-header @scrollTo="scrollTo" :bottom="bottom" :priceSummary="priceSummary"
-            v-if="windowTop > 660" /> -->
+  <section>
+    <template v-if="isLoading">
+      <loader />
+    </template>
+    <template v-else-if="stay">
+      <div class="details-page" :class="{ overlay: isOverlay }">
         <deatils-sticky-header :priceSummary="priceSummary" v-if="windowTop > 660" />
-        <details-header :stay="stay" />
-        <img-gallery :images="stay.imgUrls" />
-        <div class="description-layout flex">
-          <details-description :stay="stay" />
-          <reservation-details :stay="stay" />
+        <div id="photos" class="stay-details main-layout">
+          <details-header :stay="stay" />
+          <img-gallery :images="stay.imgUrls" />
+          <div class="description-layout flex">
+            <details-description :stay="stay" />
+            <reservation-details :stay="stay" />
+          </div>
+          <details-reviews :stay="stay" />
         </div>
-        <details-reviews :stay="stay" />
-        <div class="map-container">
-          <details-map class="details-map" :stay="stay" />
-        </div>
+        <app-footer />
       </div>
-      <app-footer />
-    </div>
-    <div class="details-page-mobile-container">
-      <stay-details-mobile :stay="stay" />
-    </div>
+      <div class="details-page-mobile-container">
+        <stay-details-mobile :stay="stay" />
+      </div>
+    </template>
+    <template v-else>
+      <notFound />
+    </template>
   </section>
 </template>
+
 <script>
 import detailsMap from "../cmps/details-map.cmp.vue";
 import imgGallery from "../cmps/details/image-gallery.cmp.vue";
@@ -33,12 +37,15 @@ import deatilsStickyHeader from "../cmps/details/deatils-sticky-header.cmp.vue";
 import detailsReviews from "../cmps/details/details-reviews.cmp.vue";
 import appFooter from "../cmps/app-footer.cmp.vue";
 import stayDetailsMobile from "../cmps/details/stay-details-mobile.cmp.vue";
-
-import { ElLoading } from "element-plus";
+import notFound from "../cmps/notFound.vue";
+import loader from "../cmps/loader.cmp.vue";
+import { toRaw } from "vue";
 
 export default {
+  name: "details-page",
   data() {
     return {
+      isLoading: true,
       stay: null,
       images: null,
       windowTop: null,
@@ -47,29 +54,34 @@ export default {
         reviewsLength: 0,
         rating: 0,
       },
-      // bottom: null,
-      isLoading: false,
-      // isMobile: false,
     };
   },
   async created() {
-    window.addEventListener("scroll", this.onScroll);
-    this.onScroll();
-    const { stayId } = this.$route.params;
-    this.startLoader();
     try {
+      window.addEventListener("scroll", this.onScroll);
+      this.onScroll();
+      const { stayId } = this.$route.params;
       await this.$store.dispatch({ type: "loadById", id: stayId });
-      this.closeLoader();
 
-      if (!stayId) return this.$router.push("/stay");
-      this.stay = this.$store.getters.getCurrStay;
-      this.priceSummary.price = this.stay.price;
-      this.priceSummary.reviewsLength = this.stay.reviews.length;
-      this.priceSummary.rating = this.stay.reviewScores.rating;
+      const loadedStay = toRaw(this.$store.getters.getCurrStay);
+      if (!loadedStay) {
+        this.isLoading = false;
+        return;
+      }
+      this.stay = loadedStay;
+      this.isLoading = false;
 
-      this.$store.commit({ type: "setCurrPage", page: "details-page" });
+      const priceSummaryLoaded = {
+        price: loadedStay.price ?? 100,
+        reviewsLength: loadedStay.reviews.length ?? 5,
+        rating: loadedStay.reviewScores.rating ?? 100,
+      };
+
+      this.priceSummary = priceSummaryLoaded;
+
+      this.$store.commit({ type: "setCurrPage", page: "details-page" })
     } catch (err) {
-      console.log("Error in getById stays (store)", err);
+      console.log("Error in stay details", err);
       throw err;
     }
   },
@@ -77,36 +89,10 @@ export default {
     onScroll(e) {
       this.windowTop = window.top.scrollY;
     },
-    // scrollTo(refName) {
-    //   var element = this.$refs[refName];
-    //   var top = element.offsetTop;
-    //   console.log(element, top)
-    //   window.scrollTo(0, top);
-    // },
-    loader() {
-      const loader = ElLoading.service({
-        lock: true,
-        text: "Loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-      if (this.isLoading) return loader;
-      else loader.close();
-    },
-    closeLoader() {
-      this.isLoading = false;
-      this.loader();
-    },
-    startLoader() {
-      this.isLoading = true;
-      this.loader();
-    },
   },
-  // mounted() {
-  //   this.onScroll
-  // },
   computed: {
-    detailsPage() {
-      return this.$store.getters.currPage === "details-page" ? true : false;
+    isOverlay() {
+      return this.$store.getters.isOverlay
     },
   },
   unmounted() {
@@ -122,6 +108,8 @@ export default {
     appFooter,
     detailsMap,
     stayDetailsMobile,
+    notFound,
+    loader,
   },
 };
 </script>

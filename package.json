@@ -12,7 +12,7 @@
     "axios": "^0.27.2",
     "chart.js": "^3.8.2",
     "element-plus": "^2.2.9",
-    "font-awesome": "^4.7.0",
+    "lodash.debounce": "^4.0.8",
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",
     "socket.io-client": "^4.4.1",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
+    "autoprefixer": "^10.4.14",
     "vite": "^3.0.1",
     "vue-svg-loader": "^0.10.0",
     "vue-template-compiler": "^2.7.8"

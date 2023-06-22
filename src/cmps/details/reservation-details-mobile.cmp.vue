@@ -2,7 +2,6 @@
   <section class="reservation-details-mobile">
     <h1>Your trip</h1>
     <div class="dates">
-      <!-- <date-picker :dates="dates" /> -->
       <Datepicker
         v-model="dates"
         modelType="dd.MM.yyyy"

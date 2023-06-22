@@ -6,7 +6,7 @@
         <div class="details-review-container">
             <div v-for="review in reviews">
                 <div class="details-review-header flex">
-                    <img class="avatar" :src="review.by.imgUrl" alt="">
+                    <img class="avatar" :src="randomUserImg" alt="">
                     <!-- <img class="avatar" :src="randomPersonImg"> -->
                     &nbsp;
                     &nbsp;
@@ -30,6 +30,8 @@
 </template>
 <script>
 import detailsRatingBars from './details-rating-bars.cmp.vue';
+import axios from "axios"
+
 export default {
     props: {
         stay: {
@@ -39,13 +41,23 @@ export default {
     },
     data() {
         return {
-            reviews: []
+            reviews: [],
+            randomUserImg: null
         };
     },
-    created() {
+    async created() {
         this.reviews = this.stay.reviews
+        this.randomUserImg = await this.getRandomUserImg()
     },
     methods: {
+        async getRandomUserImg() {
+            try {
+                const {data} = await axios.get("https://randomuser.me/api/") 
+                return data.results[0].picture.thumbnail
+            } catch (err) {
+                console.log(err)
+            }
+        }
     },
     computed: {
         randomPersonImg() {
@@ -59,6 +71,3 @@ export default {
     }
 };
 </script>
-<style lang="">
-    
-</style>

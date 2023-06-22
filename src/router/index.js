@@ -1,17 +1,15 @@
-import { createRouter, createWebHashHistory } from "vue-router"
-import { isNavigationFailure } from "vue-router"
-import deshboardHost from "../pages/deshboard-host.vue"
-import explorePage from "../pages/explore-page.vue"
-import homePage from "../pages/home-page.vue"
-import stayDetails from "../pages/stay-details.vue"
-import userWishlist from "../pages/user-wishlist.vue"
-import userOrder from "../pages/user-order.vue"
+import { createRouter, createWebHashHistory } from "vue-router";
+import deshboardHost from "../pages/deshboard-host.vue";
+import explorePage from "../pages/explore-page.vue";
+import homePage from "../pages/home-page.vue";
+import stayDetails from "../pages/stay-details.vue";
+import userWishlist from "../pages/user-wishlist.vue";
+import userOrder from "../pages/user-order.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
   scrollBehavior(to, from, savedPosition) {
-    // always scroll to top
-    return { top: 0 }
+    return { top: 0 };
   },
   routes: [
     {
@@ -45,16 +43,6 @@ const router = createRouter({
       component: userOrder,
     },
   ],
-})
+});
 
-// router.afterEach((to, from, failure) => {
-//   console.log("to: ", to)
-//   console.log("from: ", from)
-//   if (isNavigationFailure(failure)) {
-//     console.log("failed navigation", failure)
-//   }
-// })
-
-// console.log(router)
-
-export default router
+export default router;

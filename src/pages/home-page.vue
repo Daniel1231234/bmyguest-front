@@ -1,5 +1,5 @@
 <template>
-  <section class="home-page">
+  <section class="home-page" :class="{ overlay: isOverlay }">
     <labels-select v-if="getLebels" :labels="getLebels" :stays="stays" />
     <stay-list v-if="stays" :stays="stays" />
   </section>
@@ -18,18 +18,22 @@ export default {
   methods: {},
   computed: {
     stays() {
-      return this.$store.getters.totalStays;
+      return this.$store.getters.stays;
     },
     getLebels() {
       return this.$store.getters.getLebels;
     },
+    isOverlay() {
+      return this.$store.getters.isOverlay
+    },
   },
   created() {
-    this.$store.commit({ type: "setCurrPage", page: "home-page" });
-    // this.$store.dispatch({ type: "loadStays" });
+    this.$store.commit({ type: "setCurrPage", page: "home-page" })
     this.$store.dispatch({ type: "loadHostOrders" });
+    this.$store.commit({ type: "setOpenHeader", currVal: false })
   },
-
+  mounted() {
+  },
   components: {
     stayList,
     labelsSelect,

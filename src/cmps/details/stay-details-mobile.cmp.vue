@@ -112,10 +112,6 @@
         <amenities-details :stay="stay" id="reviews" />
       </div>
       <hr />
-      <div class="map-container-mob">
-        <details-map :stay="stay" />
-        <div>{{ stay.loc.street }}</div>
-      </div>
       <hr />
       <div class="date-picker-mob">
         <Datepicker
@@ -170,6 +166,8 @@ import amenitiesDetails from "./details-amenities.cmp.vue";
 import detailsMap from "../details-map.cmp.vue";
 import datePickerMobile from "../date-picker-mobile.cmp.vue";
 import reservationDetailsMobile from "./reservation-details-mobile.cmp.vue";
+
+import Datepicker from "@vuepic/vue-datepicker";
 
 import { ElLoading } from "element-plus";
 
@@ -266,6 +264,7 @@ export default {
     Pagination,
     Navigation,
     reservationDetailsMobile,
+    Datepicker
   },
 };
 </script>

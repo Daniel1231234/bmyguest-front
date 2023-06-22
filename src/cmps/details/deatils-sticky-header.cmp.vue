@@ -1,5 +1,5 @@
 <template >
-    <div class="sticky-detail-header ">
+    <div class="sticky-detail-header main-layout ">
         <div class="sticky-detail-nav">
             <button @click="scrollMeTo('photos')">Photos</button>
             <button @click="scrollMeTo('here')">Amenities</button>

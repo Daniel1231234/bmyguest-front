@@ -1,7 +1,11 @@
 <template>
   <section class="header-date-container">
-    <Datepicker v-model="date" modelType="dd.MM.yyyy" @update:modelValue="handleDate" range multiCalendars closeOnScroll
-      calendarClassName="calendar">
+    <Datepicker 
+        v-model="date" 
+        modelType="dd.MM.yyyy" 
+        @update:modelValue="handleDate" 
+        range multiCalendars closeOnScroll
+        calendarClassName="calendar">
       <template #trigger>
         <section class="flex row gap">
           <div class="checkin  flex column">
@@ -20,6 +24,7 @@
 
 <script>
 import { reactive, toRaw } from 'vue'
+import Datepicker from "@vuepic/vue-datepicker";
 export default {
   props: {
     dates: { type: Array }
@@ -32,16 +37,13 @@ export default {
   created() {
   },
   methods: {
-    handleDate() {
+    handleDate() {      
       const state = reactive(this.date)
       const res = toRaw(state)
-      console.log(res)
-
-      // this.dates = state
-      // console.log(toRaw(this.date))
       this.$emit('dates', res)
     }
-  }
+  },
+  components: {Datepicker}
 }
 </script>
 

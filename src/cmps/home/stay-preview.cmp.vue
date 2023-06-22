@@ -45,7 +45,6 @@ export default {
     },
     data() {
         return {
-            isMouseOver: false,
             description: "",
             wished: false,
         }
@@ -55,11 +54,10 @@ export default {
     },
     methods: {
         async goToDetail() {
-            await this.$store.commit({ type: 'setCurrPage', page: 'details-page' })
             this.$router.push(`/stay/${this.stay._id}`)
         },
         addToWishList() {
-            if (this.currPage === 'home-page') return console.log('only in explore')
+            if (this.currPage === 'home-page') return 
             this.$emit("addToWishList", this.stay)
             this.wished = !this.wished
         }

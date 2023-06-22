@@ -1,6 +1,5 @@
 <template>
-    <!-- :class="{'sticky' : stickingLabels}" -->
-    <section class="labels-select main-layout ">
+    <section class="labels-select main-layout" :class="{ flex: isShowLabels, hidden: !isShowLabels }">
         <div class="labels-list">
             <homeCaruselCmp v-if="labels" :labelsArry="labels" />
         </div>
@@ -31,7 +30,7 @@ export default {
     mounted() {
         window.addEventListener("scroll", this.stickingLabels)
     },
-    beforeDestroy() {
+    unmounted() {
         window.removeEventListener("scroll", this.stickingLabels)
 
     },
@@ -41,10 +40,14 @@ export default {
         },
         stickingLabels() {
             return (this.windowPos > 100)
-        }
+        },
 
     },
-    computed: {},
+    computed: {
+        isShowLabels() {
+            return this.$store.getters.isShowLabels
+        }
+    },
     components: {
         homeCaruselCmp,
     },

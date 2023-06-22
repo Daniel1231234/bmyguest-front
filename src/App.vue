@@ -1,12 +1,12 @@
 
 <template>
-  <section class="main-app">
-    <app-header :stays="stays" />
+  <main class="main-app">
+    <app-header :stays="stays" :appPage="appPage" />
     <div>
       <router-view />
     </div>
     <user-msg />
-  </section>
+  </main>
 </template>
 
 
@@ -15,17 +15,17 @@ import userMsg from './cmps/user-msg.cmp.vue';
 import appFooter from './cmps/app-footer.cmp.vue'
 import appHeader from './cmps/home/app-header.cmp.vue'
 
+import debounce from 'lodash/debounce';
+
 
 export default {
   data() {
     return {
-      openHeader: false,
     }
   },
   name: 'app',
   created() {
     this.$store.dispatch({ type: 'loadStays' })
-    this.$store.dispatch({ type: 'loadLabels' })
     this.$store.dispatch({ type: 'loadOrders' })
   },
   mounted() { },
@@ -35,12 +35,14 @@ export default {
     stays() {
       return this.$store.getters.stays
     },
+    appPage() {
+      return this.$store.getters.currPage
+    }
   },
   components: {
     appFooter,
     appHeader,
     userMsg,
-    // headerFilter,
   },
 }
 </script>

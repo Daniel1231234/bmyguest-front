@@ -137,11 +137,24 @@
     position: sticky
 }
 
+.relative {
+    position: relative;
+}
+
 .active {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px 0px;
     background-color: #fff;
     border-radius: 35px;
 }
+
+.block {
+    display:block;
+}
+
+.hidden {
+    display: none !important;
+}
+
 
 // Aspect ratios
 
